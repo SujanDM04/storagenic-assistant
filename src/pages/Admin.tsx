@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -61,8 +60,7 @@ const Admin = () => {
         console.error("Error loading admin data:", error);
         toast({
           title: "Error",
-          description: "Failed to load data. Please try again.",
-          variant: "destructive"
+          description: "Failed to load data. Please try again."
         });
       }
     };
@@ -75,8 +73,7 @@ const Admin = () => {
     if (!newFaq.question || !newFaq.answer) {
       toast({
         title: "Error",
-        description: "Please provide both a question and an answer.",
-        variant: "destructive"
+        description: "Please provide both a question and an answer."
       });
       return;
     }
@@ -101,8 +98,7 @@ const Admin = () => {
       console.error("Error adding FAQ:", error);
       toast({
         title: "Error",
-        description: "Failed to add FAQ. Please try again.",
-        variant: "destructive"
+        description: "Failed to add FAQ. Please try again."
       });
     }
   };

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { MessagesList } from "@/components/chat/MessagesList";
 import { MessageInput } from "@/components/chat/MessageInput";
@@ -75,7 +74,6 @@ const Index = () => {
       toast({
         title: "Error",
         description: "Failed to process your message. Please try again.",
-        variant: "destructive"
       });
     } finally {
       setIsLoading(false);

@@ -22,4 +22,14 @@ const useToast = () => {
   return { toast };
 };
 
+// Export the toast function directly for convenience
+export const toast = (props: ToastProps) => {
+  sonnerToast(props.title || "", {
+    description: props.description,
+    action: props.action,
+    icon: props.icon,
+    duration: props.duration,
+  });
+};
+
 export { useToast };

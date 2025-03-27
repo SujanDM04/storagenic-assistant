@@ -2,11 +2,22 @@
 import { createClient } from '@supabase/supabase-js';
 import { toast } from "sonner";
 
-// Initialize Supabase client
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+// Initialize Supabase client with fallback values for development
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder-project.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-key';
 
+// Create client with basic configuration - this won't make actual API calls until valid credentials are provided
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+// Helper to check if we have valid Supabase configuration
+export const hasValidSupabaseConfig = () => {
+  return (
+    import.meta.env.VITE_SUPABASE_URL && 
+    import.meta.env.VITE_SUPABASE_URL !== 'https://placeholder-project.supabase.co' &&
+    import.meta.env.VITE_SUPABASE_ANON_KEY && 
+    import.meta.env.VITE_SUPABASE_ANON_KEY !== 'placeholder-key'
+  );
+};
 
 // Mock data for development when not connected to Supabase
 const MOCK_FAQS = [
@@ -87,7 +98,7 @@ const TABLES = {
 
 // Helper function to check if connected to Supabase
 const isConnectedToSupabase = () => {
-  return supabaseUrl && supabaseAnonKey;
+  return hasValidSupabaseConfig();
 };
 
 // FAQ functions

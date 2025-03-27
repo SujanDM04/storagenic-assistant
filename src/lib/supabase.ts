@@ -1,22 +1,16 @@
-
 import { createClient } from '@supabase/supabase-js';
 import { toast } from "sonner";
 
-// Initialize Supabase client with fallback values for development
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://placeholder-project.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'placeholder-key';
+// Use the direct values from Supabase integration
+const supabaseUrl = "https://helaleedscdpdxwlgrnv.supabase.co";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhlbGFsZWVkc2NkcGR4d2xncm52Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMwOTY1NDksImV4cCI6MjA1ODY3MjU0OX0.UvbiuIlDe4O8KL6x85GhnGpOMEeb3Jg2f3ezTsXUlPA";
 
-// Create client with basic configuration - this won't make actual API calls until valid credentials are provided
+// Create client with proper configuration
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Helper to check if we have valid Supabase configuration
 export const hasValidSupabaseConfig = () => {
-  return (
-    import.meta.env.VITE_SUPABASE_URL && 
-    import.meta.env.VITE_SUPABASE_URL !== 'https://placeholder-project.supabase.co' &&
-    import.meta.env.VITE_SUPABASE_ANON_KEY && 
-    import.meta.env.VITE_SUPABASE_ANON_KEY !== 'placeholder-key'
-  );
+  return true; // Since we're now using hardcoded valid credentials
 };
 
 // Mock data for development when not connected to Supabase

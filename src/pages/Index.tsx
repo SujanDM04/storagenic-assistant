@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessagesList } from "@/components/chat/MessagesList";
 import { MessageInput } from "@/components/chat/MessageInput";
 import { ChatHeader } from "@/components/chat/ChatHeader";
@@ -7,11 +7,14 @@ import { QuickReplyButtons } from "@/components/chat/QuickReplyButtons";
 import { createFakeMessage } from "@/lib/chat-helpers";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { Message } from "@/lib/chat-helpers";
+import { generateGroqResponse, getQuickResponse } from "@/lib/groq";
+import { createCustomerInquiry } from "@/lib/supabase";
 
 const Index = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     createFakeMessage("assistant", "👋 Hello! I'm Stor-a-gentic, your friendly storage assistant. How can I help you today?"),
   ]);
   
@@ -36,26 +39,54 @@ const Index = () => {
     // Show loading state
     setIsLoading(true);
     
-    // Simulate a response for now - in real app would connect to Airtable
-    setTimeout(() => {
-      const responseContent = getSimulatedResponse(content);
+    try {
+      // Save inquiry to database
+      await createCustomerInquiry({
+        name: "Chat User",
+        email: "chat@example.com", // Placeholder as we don't collect this in simple chat
+        message: content,
+        status: 'new'
+      });
+      
+      // Get AI response via Groq API
+      const apiKey = import.meta.env.VITE_GROQ_API_KEY;
+      let responseContent;
+      
+      if (apiKey) {
+        // Use Groq API if key is available
+        const response = await getQuickResponse(content);
+        responseContent = response.content;
+      } else {
+        // Fallback to simulated response
+        responseContent = getSimulatedResponse(content);
+      }
+      
+      // Add AI response to chat
       const assistantMessage = createFakeMessage("assistant", responseContent);
       setMessages((prev) => [...prev, assistantMessage]);
-      setIsLoading(false);
       
-      // Show toast notification when message is received
+      // Show toast notification
       toast({
         title: "New message",
         description: "Assistant has responded to your query",
       });
-    }, 1000);
+    } catch (error) {
+      console.error("Error handling message:", error);
+      toast({
+        title: "Error",
+        description: "Failed to process your message. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleQuickReply = (content: string) => {
     handleSendMessage(content);
   };
 
-  // Simple response simulation for development
+  // Simple response simulation for fallback when API key isn't available
   const getSimulatedResponse = (query: string) => {
     const lowerQuery = query.toLowerCase();
     

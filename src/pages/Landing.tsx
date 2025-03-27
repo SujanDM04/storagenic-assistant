@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -49,7 +48,7 @@ const Landing = () => {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Your friendly AI storage assistant, ready to help with all your storage needs
           </p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
               className="text-lg px-8 py-6"
@@ -57,6 +56,14 @@ const Landing = () => {
             >
               <MessageSquare className="mr-2" />
               Start Chat Now
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              className="text-lg px-8 py-6"
+              onClick={() => navigate("/admin")}
+            >
+              Admin Dashboard
             </Button>
           </div>
         </div>

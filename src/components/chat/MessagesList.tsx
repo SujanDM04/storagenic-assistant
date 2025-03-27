@@ -34,8 +34,7 @@ export const MessagesList = ({ messages, isLoading }: MessagesListProps) => {
             >
               {message.role === "assistant" && (
                 <Avatar className="h-8 w-8 mr-2">
-                  <AvatarImage src="/robot-avatar.png" alt="AI Assistant" />
-                  <AvatarFallback>AI</AvatarFallback>
+                  <AvatarFallback className="bg-blue-500 text-white">AI</AvatarFallback>
                 </Avatar>
               )}
               
@@ -43,7 +42,7 @@ export const MessagesList = ({ messages, isLoading }: MessagesListProps) => {
                 className={`rounded-lg px-4 py-2 ${
                   message.role === "user"
                     ? "bg-primary text-primary-foreground"
-                    : "bg-muted"
+                    : "bg-blue-100 text-gray-800"
                 }`}
               >
                 <div className="whitespace-pre-wrap">{message.content}</div>
@@ -51,7 +50,7 @@ export const MessagesList = ({ messages, isLoading }: MessagesListProps) => {
                   className={`text-xs mt-1 ${
                     message.role === "user"
                       ? "text-primary-foreground/70"
-                      : "text-muted-foreground"
+                      : "text-gray-500"
                   }`}
                 >
                   {message.timestamp.toLocaleTimeString([], {
@@ -74,10 +73,10 @@ export const MessagesList = ({ messages, isLoading }: MessagesListProps) => {
           <div className="flex justify-start">
             <div className="flex max-w-[80%] flex-row">
               <Avatar className="h-8 w-8 mr-2">
-                <AvatarFallback>AI</AvatarFallback>
+                <AvatarFallback className="bg-blue-500 text-white">AI</AvatarFallback>
               </Avatar>
-              <div className="rounded-lg px-4 py-2 bg-muted flex items-center">
-                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              <div className="rounded-lg px-4 py-2 bg-blue-50 flex items-center text-gray-800">
+                <Loader2 className="h-4 w-4 animate-spin mr-2 text-blue-500" />
                 <span>Thinking...</span>
               </div>
             </div>

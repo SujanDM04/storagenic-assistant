@@ -6,8 +6,10 @@ import { ChatHeader } from "@/components/chat/ChatHeader";
 import { QuickReplyButtons } from "@/components/chat/QuickReplyButtons";
 import { createFakeMessage } from "@/lib/chat-helpers";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [messages, setMessages] = useState([
     createFakeMessage("assistant", "👋 Hello! I'm Stor-a-gentic, your friendly storage assistant. How can I help you today?"),
@@ -19,8 +21,9 @@ const Index = () => {
   const quickReplies = [
     { id: "book", label: "Book a collection", action: () => handleQuickReply("I want to book a collection service") },
     { id: "hours", label: "Store hours", action: () => handleQuickReply("What are your store hours?") },
+    { id: "sizes", label: "Storage sizes", action: () => handleQuickReply("What size storage units do you offer?") },
+    { id: "security", label: "Security", action: () => handleQuickReply("How secure are your facilities?") },
     { id: "human", label: "Talk to human", action: () => handleQuickReply("I'd like to speak with a human representative") },
-    { id: "faq", label: "FAQ", action: () => handleQuickReply("Show me your frequently asked questions") },
   ];
 
   const handleSendMessage = async (content: string) => {
@@ -33,8 +36,7 @@ const Index = () => {
     // Show loading state
     setIsLoading(true);
     
-    // TODO: Connect to actual API in future
-    // Simulate a response for now
+    // Simulate a response for now - in real app would connect to Airtable
     setTimeout(() => {
       const responseContent = getSimulatedResponse(content);
       const assistantMessage = createFakeMessage("assistant", responseContent);
@@ -62,7 +64,11 @@ const Index = () => {
     } else if (lowerQuery.includes("hours") || lowerQuery.includes("time")) {
       return "Our stores are open Monday to Friday from 9am to 7pm, and on weekends from 10am to 5pm.";
     } else if (lowerQuery.includes("human") || lowerQuery.includes("representative") || lowerQuery.includes("speak")) {
-      return "I'll connect you with one of our customer service representatives. Please wait a moment while I transfer your chat.";
+      return "I'll connect you with one of our customer service representatives. Please wait a moment while I transfer your chat, or call us directly at (555) 123-4567.";
+    } else if (lowerQuery.includes("size") || lowerQuery.includes("unit")) {
+      return "We offer a variety of storage unit sizes:\n- Small (5x5): Perfect for small furniture, boxes\n- Medium (10x10): Good for a 1-bedroom apartment\n- Large (10x20): Fits contents of a 2-3 bedroom house\n- Extra Large (10x30): Ideal for business inventory or large household moves";
+    } else if (lowerQuery.includes("security") || lowerQuery.includes("secure")) {
+      return "Your items' security is our top priority! Our facilities feature 24/7 video surveillance, electronic gate access, on-site management, and individually alarmed units.";
     } else if (lowerQuery.includes("faq") || lowerQuery.includes("question")) {
       return "Here are some frequently asked questions:\n- What size storage units do you offer?\n- Do you offer climate controlled units?\n- How secure are your facilities?\n- What are your payment options?";
     } else {
@@ -77,7 +83,7 @@ const Index = () => {
       <div className="flex-1 overflow-hidden flex flex-col">
         <MessagesList messages={messages} isLoading={isLoading} />
         
-        <div className="p-4 border-t">
+        <div className="p-4 border-t bg-white">
           <QuickReplyButtons options={quickReplies} />
           <MessageInput onSendMessage={handleSendMessage} isLoading={isLoading} />
         </div>

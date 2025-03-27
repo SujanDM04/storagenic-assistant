@@ -1,6 +1,7 @@
 
-import { Menu } from "lucide-react";
+import { Menu, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import {
   Sheet,
   SheetContent,
@@ -9,6 +10,8 @@ import {
 import { StorageSidebar } from "@/components/sidebar/StorageSidebar";
 
 export const ChatHeader = () => {
+  const navigate = useNavigate();
+  
   return (
     <header className="bg-white border-b p-4 flex items-center justify-between shadow-sm">
       <div className="flex items-center space-x-2">
@@ -30,7 +33,15 @@ export const ChatHeader = () => {
         </div>
       </div>
       
-      <div>
+      <div className="flex space-x-2">
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          onClick={() => navigate("/landing")}
+          title="Back to home"
+        >
+          <Home className="h-5 w-5" />
+        </Button>
         <Button variant="outline" size="sm">
           New Chat
         </Button>

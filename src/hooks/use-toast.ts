@@ -1,20 +1,25 @@
 
-import { toast as sonnerToast, ToastT } from "sonner"
+import { toast as sonnerToast } from "sonner";
 
-export type ToastProps = Omit<ToastT, "id">
+export type ToastProps = {
+  title?: string;
+  description?: string;
+  action?: React.ReactNode;
+  icon?: React.ReactNode;
+  duration?: number;
+};
 
 const useToast = () => {
   const toast = (props: ToastProps) => {
-    sonnerToast(props.title, {
+    sonnerToast(props.title || "", {
       description: props.description,
       action: props.action,
       icon: props.icon,
       duration: props.duration,
-    })
-  }
+    });
+  };
 
-  return { toast }
-}
+  return { toast };
+};
 
-export { useToast }
-export type { ToastProps }
+export { useToast };

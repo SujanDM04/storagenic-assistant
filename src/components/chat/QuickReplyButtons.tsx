@@ -19,6 +19,7 @@ export const QuickReplyButtons = ({ options }: QuickReplyButtonsProps) => {
           key={option.id}
           variant="outline"
           size="sm"
+          className="bg-blue-50 hover:bg-blue-100 border-blue-200"
           onClick={option.action}
         >
           {option.label}

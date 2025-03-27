@@ -5,8 +5,10 @@ import { MessageInput } from "@/components/chat/MessageInput";
 import { ChatHeader } from "@/components/chat/ChatHeader";
 import { QuickReplyButtons } from "@/components/chat/QuickReplyButtons";
 import { createFakeMessage } from "@/lib/chat-helpers";
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
+  const { toast } = useToast();
   const [messages, setMessages] = useState([
     createFakeMessage("assistant", "👋 Hello! I'm Stor-a-gentic, your friendly storage assistant. How can I help you today?"),
   ]);
@@ -38,6 +40,12 @@ const Index = () => {
       const assistantMessage = createFakeMessage("assistant", responseContent);
       setMessages((prev) => [...prev, assistantMessage]);
       setIsLoading(false);
+      
+      // Show toast notification when message is received
+      toast({
+        title: "New message",
+        description: "Assistant has responded to your query",
+      });
     }, 1000);
   };
 

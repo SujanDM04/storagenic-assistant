@@ -1,7 +1,7 @@
 
-import { toast as sonnerToast, type Toast as SonnerToast } from "sonner"
+import { toast as sonnerToast, ToastT } from "sonner"
 
-type ToastProps = Omit<SonnerToast, "id">
+export type ToastProps = Omit<ToastT, "id">
 
 const useToast = () => {
   const toast = (props: ToastProps) => {

@@ -5,13 +5,12 @@ import { ChatHeader } from "@/components/chat/ChatHeader";
 import { QuickReplyButtons } from "@/components/chat/QuickReplyButtons";
 import { createFakeMessage } from "@/lib/chat-helpers";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
 import { Message } from "@/lib/chat-helpers";
 import { generateGroqResponse, getQuickResponse } from "@/lib/groq";
 import { createCustomerInquiry } from "@/lib/supabase";
+import { Navbar } from "@/components/layout/Navbar";
 
 const Index = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const [messages, setMessages] = useState<Message[]>([
     createFakeMessage("assistant", "👋 Hello! I'm Stor-a-gentic, your friendly storage assistant. How can I help you today?"),
@@ -107,7 +106,7 @@ const Index = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      <ChatHeader />
+      <Navbar />
       
       <div className="flex-1 overflow-hidden flex flex-col">
         <MessagesList messages={messages} isLoading={isLoading} />

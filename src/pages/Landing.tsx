@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { MessageSquare, MapPin, Truck, HelpCircle, User } from "lucide-react";
 import { fetchFaqs, fetchLocations } from "@/lib/airtable";
 import { useToast } from "@/hooks/use-toast";
+import { Navbar } from "@/components/layout/Navbar";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -33,8 +34,8 @@ const Landing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      {/* Hero Section */}
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
       <section className="pt-20 pb-12 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <div className="flex justify-center mb-4">
@@ -68,7 +69,6 @@ const Landing = () => {
           </div>
         </div>
 
-        {/* Feature Tabs */}
         <Tabs 
           defaultValue="chat" 
           value={activeTab} 
@@ -273,7 +273,6 @@ const Landing = () => {
         </Tabs>
       </section>
       
-      {/* Benefits Section */}
       <section className="py-12 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto bg-gray-50">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4 text-gray-900">Why Choose Stor-a-gentic?</h2>
@@ -321,7 +320,6 @@ const Landing = () => {
         </div>
       </section>
       
-      {/* Footer */}
       <footer className="py-12 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto border-t">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex items-center mb-4 md:mb-0">
@@ -340,22 +338,12 @@ const Landing = () => {
   );
 };
 
-// FAQ Section Component
 const FaqSection = () => {
   const [faqs, setFaqs] = useState([
     { id: "1", question: "What size storage units do you offer?", answer: "We offer a variety of sizes, from small 5x5 lockers to large 10x30 units suitable for business inventory or household storage during a move." },
     { id: "2", question: "Are your storage units climate controlled?", answer: "Yes, we offer climate-controlled units that maintain a consistent temperature and humidity level to protect sensitive items." },
     { id: "3", question: "How secure are your facilities?", answer: "Our facilities feature 24/7 video surveillance, electronic gate access, on-site management, and individually alarmed units." },
   ]);
-
-  // In a real implementation, useEffect would fetch from Airtable
-  // useEffect(() => {
-  //   const loadFaqs = async () => {
-  //     const data = await fetchFaqs();
-  //     setFaqs(data);
-  //   };
-  //   loadFaqs();
-  // }, []);
 
   return (
     <div className="space-y-4">
@@ -369,21 +357,11 @@ const FaqSection = () => {
   );
 };
 
-// Location Section Component
 const LocationSection = () => {
   const [locations, setLocations] = useState([
     { id: "1", name: "Downtown Storage Center", address: "123 Main St, Downtown", phone: "(555) 123-4567", hours: "Mon-Fri: 9am-7pm, Sat-Sun: 10am-5pm" },
     { id: "2", name: "Westside Storage Facility", address: "456 West Ave, Westside", phone: "(555) 987-6543", hours: "Mon-Fri: 9am-7pm, Sat-Sun: 10am-5pm" },
   ]);
-
-  // In a real implementation, useEffect would fetch from Airtable
-  // useEffect(() => {
-  //   const loadLocations = async () => {
-  //     const data = await fetchLocations();
-  //     setLocations(data);
-  //   };
-  //   loadLocations();
-  // }, []);
 
   return (
     <div className="space-y-4">
